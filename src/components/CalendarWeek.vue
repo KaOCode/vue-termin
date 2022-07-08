@@ -4,6 +4,7 @@
 			<calendar-day
 				v-for="day in calendarWeekData"
 				:key="day.id"
+        :day="day"
 			></calendar-day>
 		</div>
 	</div>
