@@ -14,7 +14,17 @@ const mutations = {
 		const eventIndex = dayObj.events.findIndex(
 			(event) => event.title === eventTitle
 		);
-		dayObj.events.splice(eventIndex, 1)
+		dayObj.events.splice(eventIndex, 1);
+	},
+	editEvent(dayId, eventTitle) {
+		// Alle auf fals setzen
+		state.calendarWeekData.map((dayObj) => {
+			dayObj.events.map((event) => (event.edit = false));
+		});
+
+		const dayObj = state.calendarWeekData.find((day) => day.id === dayId);
+		const eventObj = dayObj.events.find((event) => event.title === eventTitle);
+		eventObj.edit = true;
 	},
 };
 
