@@ -22,8 +22,25 @@
 					<i class="far fa-trash-alt" role="button" @click="deleteEvent()"></i>
 				</div>
 			</template>
-            <!-- v-if und else oder elseif müssen direkt untereinander sein  -->
-			<template v-else> Test </template>
+			<!-- v-if und else oder elseif müssen direkt untereinander sein  -->
+			<template v-else>
+				<input
+					type="text"
+					class="form-control"
+					:placeholder="event.title"
+					@input="setNewEventTitle($event)"
+					ref="newEventTitleInput"
+				/>
+				<div>
+					<select class="form-select mt-2" v-model="newEventPriority">
+						<option value="-1">Hoch</option>
+						<option value="0">Mittel</option>
+						<option value="1">Tief</option>
+					</select>
+				</div>
+				<hr />
+				<i class="fas fa-check" role="button" @click="updateEvent()"></i>
+			</template>
 		</div>
 	</div>
 </template>
@@ -35,6 +52,12 @@
 		props: {
 			event: Object,
 			day: Object,
+		},
+		data() {
+			return {
+				newEventTitle: "",
+				newEventPriority: this.event.priority,
+			};
 		},
 		computed: {
 			priorityDisplayName() {
@@ -56,9 +79,21 @@
 			deleteEvent() {
 				Store.mutations.deleteEvent(this.day.id, this.event.title);
 			},
-            editEvent() {
-                Store.mutations.editEvent(this.day.id, this.event.title)
-            }
+			editEvent() {
+				Store.mutations.editEvent(this.day.id, this.event.title);
+				this.$nextTick(() => {
+					this.$refs.newEventTitleInput.focus();
+				});
+			},
+			setNewEventTitle(event) {
+				this.newEventTitle = event.target.value;
+			},
+			updateEvent() {
+				Store.mutations.updateEvent(this.day.id, this.event.title, {
+					title: this.newEventTitle,
+					priority: this.newEventPriority,
+				});
+			},
 		},
 	};
 </script>
