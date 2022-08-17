@@ -1,0 +1,81 @@
+<template>
+	<div class="card border-start" :class="cardClasses">
+		<div
+			class="card-header text-center"
+			:class="classHeaderClasses"
+			role="button"
+			@click="setActiveDay"
+		>
+			<strong>{{ day.fullName }}</strong>
+		</div>
+		<div class="card-body">
+			<div v-if="day.events.leght">
+				<calendar-event
+				v-for="event in day.events"
+				:key="event.title"
+				:event="event"
+                :day="day"
+			>
+				<template #eventPriority="slotProps">
+					<h5>{{ slotProps.priorityDisplayName }}</h5>
+				</template>
+				<template #eventTitle="{ event: entry }">
+					<i>{{ entry.title }}</i>
+				</template>
+			</calendar-event>
+			</div>
+		</div>
+	
+	</div>
+</template>
+<script>
+	import CalendarEvent from "./CalendarEvent";
+	import Store from "../store";
+	export default {
+		name: "CalendarDay",
+		components: {
+			CalendarEvent,
+		},
+		// Array schreibweiße nicht zuEmpfehlen
+		// props: ["day"],
+		// Object
+		props: {
+			// Typisieren
+			// Mehrere Typen [Object, String] usw.
+			day: {
+				type: Object,
+				required: true,
+				default: function () {
+					return {
+						id: -1,
+						fullName: "Wochentag nicht gefunden",
+						events: [],
+					};
+				},
+				validator: function (value) {
+					if (Object.keys(value).includes("id")) {
+						return true;
+					}
+				},
+			},
+		},
+		methods: {
+			setActiveDay() {
+				Store.mutations.setActiveDay(this.day.id)
+			}
+		},
+		computed: {
+			cardClasses() {
+				return this.day.id === Store.getters.activeDay().id
+					? ["border-primary"]
+					: null;
+			},
+			classHeaderClasses() {
+				return this.day.id === Store.getters.activeDay().id
+					? ["bg-primary", "text-white"]
+					: null;
+			},
+		},
+	};
+</script>
+<style scoped></style>

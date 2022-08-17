@@ -87,20 +87,17 @@
 	}
 </script>
 <style scoped>
-	.list-enter-from,
-	.list-leave-to {
-		opacity: 0;
-		transform: translateY(30px);
-	}
+.list-enter-from, .list-leave-to {
+	opacity: 0;
+	transform: translate;
+}
 
-	.list-enter-to,
-	.list-leave-from {
-		opacity: 1;
-		transform: translateY(0);
-	}
+.list-enter-to, .list-leave-from {
 
-	.list-enter-active,
-	.list-leave-active {
-		transition: all 1s ease;
-	}
+}
+
+.list-enter-active, .list-leave-active {
+
+}
+
 </style>

@@ -2,7 +2,7 @@
 	<div id="calendar-event">
 		<div class="alert text-center" :class="alertColor">
 			<!-- If template -->
-			<transition name="fade" mode="out-in">
+			<transition>
 				<div v-if="!event.edit">
 					<div>
 						<!-- <strong>{{ priorityDisplayName }}</strong> -->

@@ -6,9 +6,7 @@
 				<!-- <calendar-week-as-list></calendar-week-as-list>
 				<calendar-week></calendar-week> -->
 				<keep-alive>
-				<transition name="fade" mode="out-in" appear>
 					<component :is="activeView" />
-				</transition>
 				</keep-alive>
 				<!-- Ende: Template für die Calendar-Week-Component -->
 			</div>
@@ -92,7 +90,7 @@
 		opacity: 0;
 	}
 
-	.fade-enter-to, .fade-leave-from {
+	.fade-enter-to, .fade-leave-to {
 		opacity: 1;
 	}
 

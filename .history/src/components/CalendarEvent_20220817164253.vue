@@ -2,53 +2,57 @@
 	<div id="calendar-event">
 		<div class="alert text-center" :class="alertColor">
 			<!-- If template -->
-			<transition name="fade" mode="out-in">
-				<div v-if="!event.edit">
-					<div>
-						<!-- <strong>{{ priorityDisplayName }}</strong> -->
-						<slot
-							name="eventPriority"
-							:priorityDisplayName="priorityDisplayName"
-						>
+			<transition>
+					<div v-if="!event.edit">
+						<div>
+							<!-- <strong>{{ priorityDisplayName }}</strong> -->
+							<slot
+								name="eventPriority"
+								:priorityDisplayName="priorityDisplayName"
+							>
+								<!-- Fallback -->
+								{{ priorityDisplayName }}
+							</slot>
+						</div>
+
+						<!-- <div>{{ event.title }}</div> -->
+						<slot name="eventTitle" :event="event">
 							<!-- Fallback -->
-							{{ priorityDisplayName }}
+							{{ event.title }}
 						</slot>
-					</div>
 
-					<!-- <div>{{ event.title }}</div> -->
-					<slot name="eventTitle" :event="event">
-						<!-- Fallback -->
-						{{ event.title }}
-					</slot>
-
-					<div>
-						<i class="fas fa-edit me-2" role="button" @click="editEvent()"></i>
-						<i
-							class="far fa-trash-alt"
-							role="button"
-							@click="deleteEvent()"
-						></i>
+						<div>
+							<i
+								class="fas fa-edit me-2"
+								role="button"
+								@click="editEvent()"
+							></i>
+							<i
+								class="far fa-trash-alt"
+								role="button"
+								@click="deleteEvent()"
+							></i>
+						</div>
 					</div>
-				</div>
-				<!-- v-if und else oder elseif müssen direkt untereinander sein  -->
-				<div v-else>
-					<input
-						type="text"
-						class="form-control"
-						:placeholder="event.title"
-						@input="setNewEventTitle($event)"
-						ref="newEventTitleInput"
-					/>
-					<div>
-						<select class="form-select mt-2" v-model="newEventPriority">
-							<option value="-1">Hoch</option>
-							<option value="0">Mittel</option>
-							<option value="1">Tief</option>
-						</select>
-					</div>
-					<hr />
-					<i class="fas fa-check" role="button" @click="updateEvent()"></i>
-				</div>
+					<!-- v-if und else oder elseif müssen direkt untereinander sein  -->
+					<templdivate v-else>
+						<input
+							type="text"
+							class="form-control"
+							:placeholder="event.title"
+							@input="setNewEventTitle($event)"
+							ref="newEventTitleInput"
+						/>
+						<div>
+							<select class="form-select mt-2" v-model="newEventPriority">
+								<option value="-1">Hoch</option>
+								<option value="0">Mittel</option>
+								<option value="1">Tief</option>
+							</select>
+						</div>
+						<hr />
+						<i class="fas fa-check" role="button" @click="updateEvent()"></i>
+					</template>
 			</transition>
 		</div>
 	</div>

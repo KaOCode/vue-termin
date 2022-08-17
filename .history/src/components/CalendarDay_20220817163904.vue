@@ -9,30 +9,28 @@
 			<strong>{{ day.fullName }}</strong>
 		</div>
 		<div class="card-body">
-			<transition name="fade" mode="out-in">
-				<div v-if="day.events.length">
-					<transition-group name="list">
-						<calendar-event
-							v-for="event in day.events"
-							:key="event.title"
-							:event="event"
-							:day="day"
-						>
-							<template #eventPriority="slotProps">
-								<h5>{{ slotProps.priorityDisplayName }}</h5>
-							</template>
-							<template #eventTitle="{ event: entry }">
-								<i>{{ entry.title }}</i>
-							</template>
-						</calendar-event>
-					</transition-group>
+		<transition name="fade" mode>
+		<div v-if="day.events.length">
+				<calendar-event
+					v-for="event in day.events"
+					:key="event.title"
+					:event="event"
+					:day="day"
+				>
+					<template #eventPriority="slotProps">
+						<h5>{{ slotProps.priorityDisplayName }}</h5>
+					</template>
+					<template #eventTitle="{ event: entry }">
+						<i>{{ entry.title }}</i>
+					</template>
+				</calendar-event>
+			</div>
+			<div v-else>
+				<div class="alert alert-light text-center">
+					<i>Keine Termine</i>
 				</div>
-				<div v-else>
-					<div class="alert alert-light text-center">
-						<i>Keine Termine</i>
-					</div>
-				</div>
-			</transition>
+			</div>
+		</transition>
 		</div>
 	</div>
 </template>
@@ -86,21 +84,4 @@
 		},
 	}
 </script>
-<style scoped>
-	.list-enter-from,
-	.list-leave-to {
-		opacity: 0;
-		transform: translateY(30px);
-	}
-
-	.list-enter-to,
-	.list-leave-from {
-		opacity: 1;
-		transform: translateY(0);
-	}
-
-	.list-enter-active,
-	.list-leave-active {
-		transition: all 1s ease;
-	}
-</style>
+<style scoped></style>
