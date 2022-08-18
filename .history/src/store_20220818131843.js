@@ -13,13 +13,30 @@ const getters = {
 	activeOrdering: () => state.activeOrdering,
 	events: (dayId) => {
 		const dayObj = state.calendarWeekData.find((day) => day.id === dayId);
-		return dayObj.events.sort((a, b) => {
-			if (a[state.activeOrdering] > b[state.activeOrdering]) {
-				return 1
-			} else if (a[state.activeOrdering] < b[state.activeOrdering]) {
-				return -1
-			}
-			return 0
+		const AsyncComp = defineAsyncComponent({
+			// The factory function
+			loader: () => import('')
+			// A component to use while the async component is loading
+			loadingComponent: loadingComponent,
+			// A component to use if the load fails
+			errorComponent: errorComponent,
+			// Delay before showing the loading component. Default: 200ms.
+			delay: 200,
+			// The error component will be displayed if a timeout is
+			// provided and exceeded. Default: Infinity.
+			timeout: 3000,
+			// Defining if component is suspensible. Default: true.
+			suspensible: false,
+			onError(error, retry, fail, attempts) {
+				if (error.message.match(/fetch/) && attempts <= 3) {
+					// retry on fetch errors, 3 max attempts
+					retry()
+				} else {
+					// Note that retry/fail are like resolve/reject of a promise:
+					// one of them must be called for the error handling to continue.
+					fail()
+				}
+			},
 		})
 	}
 }

@@ -67,14 +67,7 @@
 					return ['border border-success']
 				}
 			},
-			changeOrdering(ordering) {
-				Store.mutations.setActiveOrdering(ordering);
-			},
-			isActiveOrdering(ordering) {
-				if (ordering === Store.getters.activeOrdering()) {
-					return ["border border-success"]
-				}
-			}
+			changeOrdering(ordering) {}
 		},
 	}
 </script>

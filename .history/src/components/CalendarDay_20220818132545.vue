@@ -108,6 +108,6 @@
 	}
 
 	.list-move {
-		transition: transform 0.8s ease;
+		trans
 	}
 </style>

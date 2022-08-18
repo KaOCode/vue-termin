@@ -106,8 +106,4 @@
 	.list-leave-active {
 		transition: all 1s ease;
 	}
-
-	.list-move {
-		transition: transform 0.8s ease;
-	}
 </style>

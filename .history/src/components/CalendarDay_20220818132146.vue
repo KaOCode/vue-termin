@@ -83,9 +83,6 @@
 					? ['bg-primary', 'text-white']
 					: null
 			},
-			events() {
-				return Store.getters.events(this.day.id)
-			},
 		},
 	}
 </script>
@@ -105,9 +102,5 @@
 	.list-enter-active,
 	.list-leave-active {
 		transition: all 1s ease;
-	}
-
-	.list-move {
-		transition: transform 0.8s ease;
 	}
 </style>

@@ -11,17 +11,6 @@ const getters = {
 	activeDay: () => state.calendarWeekData.find((day) => day.active),
 	activeView: () => state.activeView,
 	activeOrdering: () => state.activeOrdering,
-	events: (dayId) => {
-		const dayObj = state.calendarWeekData.find((day) => day.id === dayId);
-		return dayObj.events.sort((a, b) => {
-			if (a[state.activeOrdering] > b[state.activeOrdering]) {
-				return 1
-			} else if (a[state.activeOrdering] < b[state.activeOrdering]) {
-				return -1
-			}
-			return 0
-		})
-	}
 }
 const mutations = {
 	deleteEvent(dayId, eventTitle) {
@@ -35,7 +24,7 @@ const mutations = {
 		state.activeView = view;
 	},
 	setActiveOrdering(ordering) {
-		state.activeOrdering = ordering;
+		
 	},
 	storeEvent(eventDO) {
 		const activeDay = getters.activeDay()

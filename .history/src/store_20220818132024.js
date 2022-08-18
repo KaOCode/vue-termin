@@ -13,13 +13,8 @@ const getters = {
 	activeOrdering: () => state.activeOrdering,
 	events: (dayId) => {
 		const dayObj = state.calendarWeekData.find((day) => day.id === dayId);
-		return dayObj.events.sort((a, b) => {
-			if (a[state.activeOrdering] > b[state.activeOrdering]) {
-				return 1
-			} else if (a[state.activeOrdering] < b[state.activeOrdering]) {
-				return -1
-			}
-			return 0
+		dayObj.events.sort((a, b) => {
+			if (a[state.activeOrdering] > b[state.activeOrdering]) 
 		})
 	}
 }

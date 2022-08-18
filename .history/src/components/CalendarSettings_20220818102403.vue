@@ -72,7 +72,7 @@
 			},
 			isActiveOrdering(ordering) {
 				if (ordering === Store.getters.activeOrdering()) {
-					return ["border border-success"]
+					return [""]
 				}
 			}
 		},
